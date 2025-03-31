@@ -1,0 +1,5 @@
+https://www.microsoft.com/en-us/evalcenter/download-windows-11-enterprise
+https://www.microsoft.com/en-us/evalcenter/download-windows-10-enterprise
+https://www.microsoft.com/de-de/evalcenter/download-windows-server-2022
+https://www.microsoft.com/de-de/evalcenter/download-windows-server-2025
+
