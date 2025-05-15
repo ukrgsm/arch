@@ -1,0 +1,60 @@
+Ставимо Ubuntu
+- Запускаємо скрипт prepare_veeam_repo.sh, який підготовить Linux 
+після чого потрібно задати пароль користувачу
+passwd veeamrepo
+На Windows де встановлений Veeam
+- В Powershel створюємо ключ для доступу по ssh
+ssh-keygen -t rsa -b 4096 -f $HOME\.ssh\veeam_key
+- копіюємо ключ на  Linux 
+scp $HOME\.ssh\veeam_key.pub veeamrepo@192.168.1.10:/home/veeamrepo/
+- Після чого логінимось на Linux під користувачем veeamrepo і виконуємо команди
+mkdir -p ~/.ssh
+cat ~/veeam_key.pub >> ~/.ssh/authorized_keys
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+rm ~/veeam_key.pub
+- Для перевірки з під Windows за допомогою Powershel пробуємо підключитись
+ssh -i "$HOME\.ssh\veeam_key" veeamrepo@192.168.1.10
+маємо підключитись без паролю
+перевіряємо чи має користувач права root
+sudo whoami
+Якщо зявився напис root, то все ок
+
+- Відкрий Veeam B&R Console
+Перейди: Backup Infrastructure > Managed Servers
+- Натисни Add Server → Linux
+Username		veeamrepo ✅
+Password	Залишити порожнім, бо використовуєш ключ ✅
+Private key	Шлях до приватного ключа (без .pub)	C:\Users\<твій_користувач>\.ssh\veeam_key ✅
+Passphrase	Якщо при створенні SSH-ключа вводив пароль — вкажи його тут.
+SSH port	22
+🔽 Розділ "Non-root account"
+У тебе створено користувача veeamrepo, який, імовірно, не має root-доступу напряму.
+Щоб Veeam міг встановити агента і працювати з репозиторієм, потрібно:
+Поставити галочку: ✅ Elevate account privileges automatically
+Це дозволить Veeam використовувати sudo для встановлення потрібних компонентів на сервер.
+
+- Додати Backup Repository
+Перейди: Backup Infrastructure > Backup Repositories
+Add Repository → Direct Attached Storage → Linux
+Вибери доданий Linux-сервер
+  Назва: UbuntuRepo01
+  Шлях: /mnt/veeam_repo
+В кінці – Enable fast clone (XFS) буде активним, якщо все зроблено правильно
+
+Створити Backup Copy Job
+
+Перейди до "Home" > Backup Copy > Backup Copy (Jobs) > Add Backup Copy Job
+Введи:
+Name: Copy to DR-Site
+Copy Mode: ✔️ Periodic copy (щодня)
+У секції Objects:
+Додай існуючий Backup Job або вироби, які хочеш копіювати
+Target:
+Repository: UbuntuRepo01
+Retention: 7 restore points
+✔️ Enable synthetic full backups
+Weekly on Saturday
+Schedule:
+Copy every 1 Day, starting at 23:00
+✔️ Process latest restore point only (економить трафік)
