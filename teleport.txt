@@ -1,0 +1,19 @@
+https://goteleport.com/docs/admin-guides/deploy-a-cluster/linux-demo/
+
+- Configure DNS
+create two DNS A records teleport.example.com and *.teleport.example.com
+- Set up Teleport on your Linux host
+curl https://cdn.teleport.dev/install.sh | bash -s 17.4.8
+- Generate a configuration file for Teleport
+sudo teleport configure -o file \
+    --acme --acme-email=teleport@ukrgsm.com \
+    --cluster-name=teleport.ukrgsm.com
+- Start Teleport
+sudo systemctl enable teleport
+sudo systemctl start teleport
+- Create a Teleport user and set up multi-factor authentication
+sudo tctl users add teleport-admin --roles=editor,access --logins=root,ubuntu,ec2-user
+The command prints a message similar to the following
+https://teleport.example.com:443/web/invite/123abc456def789ghi123abc456def78
+
+
