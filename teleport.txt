@@ -17,3 +17,39 @@ The command prints a message similar to the following
 https://teleport.example.com:443/web/invite/123abc456def789ghi123abc456def78
 
 
+RDP 
+(для підключення до РДП, потрібен або локальний доступ з сервера термінал, або в локальній мережі встановлювати ще один лінукс сервер і на ньому налаштовувати доступ)
+Open a Command Prompt (cmd.exe) on the Windows
+curl.exe -fo teleport.cer https://teleport.ukrgsm.com/webapi/auth/export?type=windows
+curl.exe -fo teleport-windows-auth-setup-v17.4.8-amd64.exe https://cdn.teleport.dev/teleport-windows-auth-setup-v17.4.8-amd64.exe
+Double-click the executable you downloaded to run the Teleport Windows Auth Setup program
+Restart the computer.
+Sign in to the Teleport cluster
+tctl tokens add --type=windowsdesktop
+Copy the token from your administrative workstation to /tmp/token
+Configure the /etc/teleport.yaml file on the Linux server
+In this file:
+Set the proxy_server to the address of your Teleport cluster.
+List the Windows desktops under static_hosts.
+
+version: v3
+teleport:
+  nodename: windows.teleport.example.com
+  proxy_server: teleport.ukrgsm.com:443
+  auth_token: "/tmp/token"
+windows_desktop_service:
+  enabled: "yes"
+  listen_addr: 0.0.0.0:3028
+  static_hosts:
+  - name: win1
+    ad: false
+    addr: 192.168.1.5:3389
+    labels:
+      windows: win10
+  - name: win2
+    ad: false
+    addr: 192.168.1.6:3389
+    labels:
+      windows: win11
+
+
