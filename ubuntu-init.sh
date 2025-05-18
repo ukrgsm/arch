@@ -1,5 +1,6 @@
 #!/bin/bash
 # curl -sSL https://raw.githubusercontent.com/ukrgsm/arch/main/ubuntu-init.sh | bash
+# curl -sSL https://raw.githubusercontent.com/ukrgsm/arch/main/ubuntu-init.sh && chmod +x ubuntu-init.sh && sudo ./ubuntu-init.sh
 set -e
 ENABLE_SUDO_NOPASSWD=true
 ENABLE_UPDATE=true
