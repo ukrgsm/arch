@@ -1,0 +1,43 @@
+mkdir -p ~/teleport/config ~/teleport/data
+touch ~/teleport/data/token
+
+Docker compose file ~/teleport/docker-compose.yml
+version: '3.8'
+
+services:
+  teleport:
+    image: public.ecr.aws/gravitational/teleport-distroless-debug:17.4.8
+    container_name: teleport
+    volumes:
+      - ./config:/etc/teleport
+      - ./data:/var/lib/teleport
+    restart: unless-stopped
+    network_mode: "host"
+
+    
+- File configuration ~/teleport/config/teleport.yaml
+version: v3
+teleport:
+  nodename: desktop-cc
+  proxy_server: teleport.ukrgsm.com:443
+  auth_token: "/var/lib/teleport/token"
+  data_dir: /var/lib/teleport
+  log:
+    output: stderr
+    severity: INFO
+
+windows_desktop_service:
+  enabled: "yes"
+  static_hosts:
+  - name: win-test
+    ad: false
+    addr: 192.168.1.10:3389
+    labels:
+      department: admin
+
+proxy_service:
+  enabled: false
+auth_service:
+  enabled: false
+ssh_service:
+  enabled: false
