@@ -51,7 +51,8 @@ create_new_user() {
 
 install_tools() {
     echo "🛠️ Встановлення базових утиліт..."
-    sudo apt install -y vim mc curl git net-tools htop unzip lsb-release ca-certificates gnupg software-properties-common bash-completion 
+    sudo apt install -y vim mc curl git net-tools open-vm-tools bash-completion
+    #htop unzip lsb-release ca-certificates gnupg software-properties-common bash-completion 
     #wget nmap tcpdump whois iperf3 mtr dnsutils rclone logwatch jq yq
 }
 
