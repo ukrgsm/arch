@@ -1,4 +1,9 @@
+https://goteleport.com/docs/installation/#running-teleport-on-docker
+https://goteleport.com/docs/enroll-resources/desktop-access/getting-started/
+
 mkdir -p ~/teleport/config ~/teleport/data
+
+tctl tokens add --type=windowsdesktop
 touch ~/teleport/data/token
 
 Docker compose file ~/teleport/docker-compose.yml
