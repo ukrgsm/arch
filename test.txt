@@ -1,3 +1,34 @@
 first file 
 mac add change
 new commit from github
+
+Teleport
+Guacamole, MeshCentral, RustDesk
+Authentik, Netmaker, Authelia
+NetBird, Netmaker
+
+| Програма        | Категорія          | Основні можливості                                                              |
+| --------------- | ------------------ | ------------------------------------------------------------------------------- |
+| **Teleport**    | 🔐 ZTNA, RDP/SSH   | Web-доступ до SSH/RDP, MFA, RBAC, session recording, SSO (OIDC/SAML), auditing  |
+| **Guacamole**   | 💻 Веб-RDP/SSH     | HTML5-доступ до RDP/SSH/VNC, підтримка LDAP/SAML, clipboard, file transfer      |
+| **MeshCentral** | 💻 RMM + агент     | Веб-керування через агент, RDP-like доступ, файловий менеджер, Wake-on-LAN      |
+| **RustDesk**    | 🖥 P2P Remote Desk | Альтернатива AnyDesk/TeamViewer, прямі з'єднання, NAT traversal, self-hosted    |
+| **Authentik**   | 🔑 SSO / IdP       | SAML, OIDC, LDAP, MFA (TOTP/WebAuthn), RBAC, reverse proxy, policy engine       |
+| **Authelia**    | 🔑 MFA Gateway     | Reverse proxy (NGINX), 2FA (TOTP), LDAP/SAML backend, портальний захист         |
+| **NetBird**     | 🌐 Zero Trust VPN  | WireGuard mesh, ACL, OIDC SSO, NAT traversal, Web UI, agent-based overlay       |
+| **Netmaker**    | 🌐 Mesh VPN Engine | Advanced WireGuard overlay, DNS, multi-host routing, ACL, self-hosted dashboard |
+
+
+| Можливість               | Teleport | Guacamole      | MeshCentral     | RustDesk       | Authentik | Authelia | NetBird | Netmaker |
+| ------------------------ | -------- | -------------- | --------------- | -------------- | --------- | -------- | ------- | -------- |
+| Web-доступ до RDP/SSH    | ✅        | ✅              | ✅ (через агент) | 🔸 GUI only    | ❌         | ❌        | ❌       | ❌        |
+| CLI/термінал             | ✅        | ❌              | ✅ (SSH shell)   | ❌              | ❌         | ❌        | ❌       | ❌        |
+| MFA                      | ✅        | 🔸 (через IdP) | ✅ (TOTP)        | 🔸 (немає MFA) | ✅         | ✅        | ✅ (SSO) | ❌        |
+| SSO (OIDC/SAML)          | ✅        | ✅              | ❌               | ❌              | ✅         | ✅        | ✅       | ❌        |
+| Role-based access (RBAC) | ✅        | 🔸             | 🔸              | ❌              | ✅         | 🔸       | ✅       | ✅        |
+| Audit/Logs               | ✅        | 🔸             | ✅               | ❌              | 🔸        | 🔸       | 🔸      | 🔸       |
+| Агент на хості           | ❌        | ❌              | ✅               | ✅              | ❌         | ❌        | ✅       | ✅        |
+| NAT traversal            | ✅        | ❌              | ✅               | ✅              | ❌         | ❌        | ✅       | 🔸       |
+| Mesh / Overlay VPN       | 🔸       | ❌              | ❌               | ❌              | ❌         | ❌        | ✅       | ✅        |
+| Reverse proxy / портал   | ✅ (App)  | ❌              | ❌               | ❌              | ✅         | ✅        | ❌       | ❌        |
+| Веб-інтерфейс            | ✅        | ✅              | ✅               | ✅              | ✅         | ❌        | ✅       | ✅        |
