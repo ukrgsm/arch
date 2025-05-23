@@ -25,7 +25,7 @@ curl.exe -fo teleport-windows-auth-setup-v17.4.8-amd64.exe https://cdn.teleport.
 Double-click the executable you downloaded to run the Teleport Windows Auth Setup program
 Restart the computer.
 Sign in to the Teleport cluster
-tctl tokens add --type=windowsdesktop
+tctl tokens add --type=windowsdesktop (tctl tokens add --type=node,app,db,windows_desktop)
 Copy the token from your administrative workstation to /tmp/token
 Configure the /etc/teleport.yaml file on the Linux server
 In this file:
